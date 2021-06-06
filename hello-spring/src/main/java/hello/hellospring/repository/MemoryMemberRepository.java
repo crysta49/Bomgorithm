@@ -12,36 +12,40 @@ import hello.hellospring.domain.Member;
 public class MemoryMemberRepository implements MemberRepository {
 	
 	private static Map<Long, Member> store = new HashMap<>();
-	private static long Sequence =0L;
+	private static long sequence = 0L;
 	
 	@Override
-	public Member save(Member member) {		
-		 member.setId(++Sequence);
-		 store.put(member.getId(), member);
-		 return member;
+	public Member save(Member member) {
+	member.setId(++sequence);
+	store.put(member.getId(), member);
+	return member;
 	}
 	
 	@Override
-	public Optional<Member> optional(Long id) {
-		
-		return Optional.ofNullable(store.get(id)); 
-		// null 허용 
+	public Optional<Member> findById(Long id) {
+	return Optional.ofNullable(store.get(id));
 	}
 	
 	@Override
-	public Optional<Member> optional(String name) {
-		
-		return store.values().stream()
-					.filter(member -> member.getName().equals(name) )
-					.findAny();
-		
+	public Optional<Member> findByName(String name) {
+	return store.values().stream()
+	.filter(member -> member.getName().equals(name))
+	.findAny();
+	
 	}
 	
 	@Override
-	public List<Member> list() {
-		
-		
-		return  new ArrayList<>(store.values());
+	public List<Member> findAll() {
+	return new ArrayList<>(store.values());
 	}
+	
+	
+	
+	public void clearStore() 
+	{
+		store.clear();
+	}
+	
+	
 
 }

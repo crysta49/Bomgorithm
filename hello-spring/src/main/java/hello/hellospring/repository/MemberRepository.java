@@ -9,10 +9,9 @@ import hello.hellospring.domain.Member;
 
 public interface MemberRepository {
 	
-	Member save (Member member);
-	Optional<Member>optional(Long id);
-	Optional<Member> optional(String name);
-	
-	List<Member>list();
+	Member save(Member member);
+	Optional<Member> findById(Long id);
+	Optional<Member> findByName(String name);
+	List<Member> findAll();
 
 }
